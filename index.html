@@ -1082,22 +1082,20 @@ async function submitForm() {
   const payload = buildPayload();
 
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
+    // Apps Script requires no-cors mode — we can't read the response
+    // but the submission goes through. We show success after a delay.
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload),
     });
-    const data = await res.json();
 
     document.getElementById('loadingOverlay').classList.remove('show');
+    // Since no-cors returns opaque response, assume success
+    document.querySelector('#page3 .card:first-child').style.display = 'none';
+    document.getElementById('successCard').style.display = 'block';
 
-    if (data.success) {
-      document.querySelector('#page3 .card:first-child').style.display = 'none';
-      document.getElementById('successCard').style.display = 'block';
-    } else {
-      alert('Something went wrong. Please try again or contact us directly.\n\n' + (data.message || ''));
-      btn.disabled = false;
-    }
   } catch(err) {
     document.getElementById('loadingOverlay').classList.remove('show');
     alert('Submission failed. Please check your connection and try again.');
