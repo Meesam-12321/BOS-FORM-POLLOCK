@@ -783,7 +783,7 @@
 </div>
 
 <!-- Google Maps Places API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoNsyQgBmWfg6sfvChUvbI81F1-emWXdI&libraries=places&callback=initAutocomplete" async defer></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoNsyQgBmWfg6sfvChUvbI81F1-emWXdI&libraries=places,marker&v=beta&callback=initAutocomplete"></script>
 
 <script>
 // ── Apps Script Web App URL ───────────────────────────────────────────────────
@@ -820,7 +820,7 @@ function toggleSameAddress() {
   document.getElementById('installation-section').style.display = sameAddress ? 'none' : 'block';
 }
 
-// ── Google Places Autocomplete ────────────────────────────────────────────────
+// ── Google Places Autocomplete (new PlaceAutocompleteElement API) ─────────────
 function initAutocomplete() {
   setupAutocomplete('billing_search', {
     address1: 'billing_address1',
@@ -845,42 +845,53 @@ function initAutocomplete() {
 
 function setupAutocomplete(inputId, fields) {
   const input = document.getElementById(inputId);
-  const ac = new google.maps.places.Autocomplete(input, {
-    componentRestrictions: { country: 'au' },
-    fields: ['address_components', 'formatted_address'],
-    types: ['address'],
-  });
 
-  ac.addListener('place_changed', () => {
-    const place = ac.getPlace();
-    if (!place.address_components) return;
-
-    let streetNumber = '', route = '', suburb = '', state = '', postcode = '';
-
-    place.address_components.forEach(c => {
-      if (c.types.includes('street_number')) streetNumber = c.long_name;
-      if (c.types.includes('route')) route = c.long_name;
-      if (c.types.includes('locality')) suburb = c.long_name;
-      if (c.types.includes('administrative_area_level_1')) state = c.short_name;
-      if (c.types.includes('postal_code')) postcode = c.long_name;
+  // Try new PlaceAutocompleteElement first, fall back to legacy Autocomplete
+  if (google.maps.places.Autocomplete) {
+    const ac = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: { country: 'au' },
+      fields: ['address_components'],
+      types: ['address'],
     });
+    ac.addListener('place_changed', () => {
+      const place = ac.getPlace();
+      if (!place.address_components) return;
+      applyAddressComponents(place.address_components, fields);
+    });
+  } else {
+    // Fallback: manual input if API unavailable
+    input.placeholder = 'Enter street address (e.g. 123 Main St)';
+    input.addEventListener('blur', () => {
+      if (input.value.trim()) {
+        document.getElementById(fields.address1).value = input.value.trim();
+        document.getElementById(fields.manualRow).style.display = 'block';
+        document.getElementById(fields.detailsRow).style.display = 'grid';
+        fields.filled();
+      }
+    });
+  }
+}
 
-    // Map state abbreviations to BOS format
-    const stateMap = { 'NSW': 'NSW', 'VIC': 'Vic', 'QLD': 'Qld', 'SA': 'SA', 'WA': 'WA', 'TAS': 'Tas', 'NT': 'NT', 'ACT': 'ACT' };
-    state = stateMap[state] || state;
+function applyAddressComponents(components, fields) {
+  let streetNumber = '', route = '', suburb = '', state = '', postcode = '';
+  const stateMap = { 'NSW': 'NSW', 'VIC': 'Vic', 'QLD': 'Qld', 'SA': 'SA', 'WA': 'WA', 'TAS': 'Tas', 'NT': 'NT', 'ACT': 'ACT' };
 
-    const address1 = [streetNumber, route].filter(Boolean).join(' ');
-
-    document.getElementById(fields.address1).value = address1;
-    document.getElementById(fields.suburb).value = suburb;
-    document.getElementById(fields.state).value = state;
-    document.getElementById(fields.postcode).value = postcode;
-
-    document.getElementById(fields.manualRow).style.display = 'block';
-    document.getElementById(fields.detailsRow).style.display = 'grid';
-
-    fields.filled();
+  components.forEach(c => {
+    if (c.types.includes('street_number')) streetNumber = c.long_name;
+    if (c.types.includes('route')) route = c.long_name;
+    if (c.types.includes('locality')) suburb = c.long_name;
+    if (c.types.includes('administrative_area_level_1')) state = stateMap[c.short_name] || c.short_name;
+    if (c.types.includes('postal_code')) postcode = c.long_name;
   });
+
+  const address1 = [streetNumber, route].filter(Boolean).join(' ');
+  document.getElementById(fields.address1).value = address1;
+  document.getElementById(fields.suburb).value = suburb;
+  document.getElementById(fields.state).value = state;
+  document.getElementById(fields.postcode).value = postcode;
+  document.getElementById(fields.manualRow).style.display = 'block';
+  document.getElementById(fields.detailsRow).style.display = 'grid';
+  fields.filled();
 }
 
 // ── Progress steps ────────────────────────────────────────────────────────────
