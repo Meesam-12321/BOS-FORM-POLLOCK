@@ -6,88 +6,126 @@
 <title>Complete Customer Entry — Choices Flooring Mackay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #F8F4EE;
-    --charcoal: #1C1C1C;
-    --mid: #5C5C5C;
-    --light: #A8A8A8;
-    --border: #E2DDD7;
-    --accent: #C4973A;
-    --accent-light: #F0E6CE;
-    --error: #C0392B;
-    --success: #27AE60;
+    --brand: #0E6AB5;
+    --brand-dark: #0A578F;
+    --brand-soft: #E7F1FA;
+    --teal: #15837B;
+
+    --cream: #F2F5F8;
+    --charcoal: #1A2A3A;
+    --mid: #57636F;
+    --light: #98A2AD;
+    --border: #D8DEE5;
+    --accent: #0E6AB5;
+    --accent-light: #E7F1FA;
+    --error: #D63A2E;
+    --success: #2E9E5B;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
     color: var(--charcoal);
     min-height: 100vh;
     padding-bottom: 60px;
+    -webkit-font-smoothing: antialiased;
   }
 
+  /* ── Header ─────────────────────────────────────────────── */
   .header {
-    background: var(--charcoal);
-    padding: 28px 40px;
+    background: #FFFFFF;
+    padding: 26px 40px 24px;
     text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
   }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+      #E2231A 0 20%, #F4A91B 20% 40%, #3AAA35 40% 60%,
+      var(--brand) 60% 80%, #E5007E 80% 100%);
+  }
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .brand-mark { width: 38px; height: 38px; display: block; }
+  .brand-word {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.92;
+    text-align: left;
+  }
+  .brand-word strong { font-weight: 700; font-size: 23px; letter-spacing: -0.01em; color: var(--brand); }
+  .brand-word span { font-weight: 500; font-size: 12px; letter-spacing: 0.16em; color: var(--brand); margin-top: 2px; }
+
   .header-eyebrow {
     font-size: 11px;
-    letter-spacing: 0.3em;
+    font-weight: 600;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--teal);
     margin-bottom: 8px;
   }
   .header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 300;
-    color: #fff;
-    letter-spacing: 0.02em;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
   }
   .accent-line {
-    width: 40px; height: 2px;
-    background: var(--accent);
+    width: 44px; height: 3px;
+    background: var(--brand);
+    border-radius: 2px;
     margin: 14px auto 0;
   }
 
   .container {
     max-width: 600px;
-    margin: 36px auto 0;
+    margin: 34px auto 0;
     padding: 0 20px;
   }
 
-  /* Customer summary card */
+  /* ── Customer summary card ──────────────────────────────── */
   .summary-card {
     background: #fff;
     border: 1px solid var(--border);
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 28px 32px;
     margin-bottom: 20px;
+    box-shadow: 0 6px 22px rgba(20,40,70,0.05);
   }
   .summary-title {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--brand);
     margin-bottom: 16px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--accent-light);
+    border-bottom: 1px solid var(--border);
   }
   .summary-grid {
     display: grid;
     grid-template-columns: 130px 1fr;
-    gap: 8px 12px;
+    gap: 10px 12px;
   }
   .summary-label {
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--light);
+    font-weight: 600;
     padding-top: 2px;
   }
   .summary-value {
@@ -101,26 +139,27 @@
     margin: 8px 0;
   }
 
-  /* Selection card */
+  /* ── Selection card ─────────────────────────────────────── */
   .select-card {
     background: #fff;
     border: 1px solid var(--border);
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 28px 32px;
     margin-bottom: 20px;
+    box-shadow: 0 6px 22px rgba(20,40,70,0.05);
   }
   .select-section-title {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--brand);
     margin-bottom: 16px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--accent-light);
+    border-bottom: 1px solid var(--border);
   }
 
-  /* Button grid */
+  /* ── Button grid ────────────────────────────────────────── */
   .btn-grid {
     display: flex;
     flex-wrap: wrap;
@@ -130,25 +169,27 @@
   .opt-btn {
     padding: 10px 20px;
     border: 1px solid var(--border);
-    border-radius: 2px;
-    background: var(--cream);
-    font-family: 'DM Sans', sans-serif;
+    border-radius: 6px;
+    background: #fff;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--mid);
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
   }
   .opt-btn:hover {
-    border-color: var(--accent);
-    color: var(--charcoal);
+    border-color: var(--brand);
+    color: var(--brand);
+    background: var(--brand-soft);
   }
   .opt-btn.selected {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--brand);
+    border-color: var(--brand);
     color: #fff;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(14,106,181,0.22);
   }
   .select-error {
     font-size: 12px;
@@ -156,57 +197,60 @@
     display: none;
     margin-top: -16px;
     margin-bottom: 16px;
+    font-weight: 500;
   }
   .select-error.show { display: block; }
 
-  /* Submit */
+  /* ── Submit ─────────────────────────────────────────────── */
   .submit-wrap { text-align: right; }
   .btn-submit {
     height: 50px;
-    padding: 0 48px;
-    background: var(--charcoal);
+    padding: 0 44px;
+    background: var(--brand);
     color: #fff;
     border: none;
-    border-radius: 2px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
   }
-  .btn-submit:hover { background: #333; }
+  .btn-submit:hover { background: var(--brand-dark); box-shadow: 0 6px 16px rgba(14,106,181,0.25); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* States */
+  /* ── States ─────────────────────────────────────────────── */
   .state-loading, .state-success, .state-error, .state-invalid {
     display: none;
     text-align: center;
     padding: 60px 40px;
   }
   .state-icon {
-    width: 64px; height: 64px;
+    width: 68px; height: 68px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 20px;
-    font-size: 28px;
+    font-size: 30px;
+    font-weight: 700;
   }
-  .icon-success { background: var(--accent-light); border: 1px solid var(--accent); }
-  .icon-error { background: #FDECEA; border: 1px solid var(--error); }
-  .icon-invalid { background: #F5F5F5; border: 1px solid var(--border); }
+  .icon-success { background: var(--brand-soft); border: 2px solid var(--brand); color: var(--brand); }
+  .icon-error { background: #FDECEA; border: 2px solid var(--error); color: var(--error); }
+  .icon-invalid { background: #F1F3F5; border: 2px solid var(--border); color: var(--light); }
   .state-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--charcoal);
     margin-bottom: 10px;
+    letter-spacing: -0.01em;
   }
   .state-text { font-size: 14px; color: var(--mid); line-height: 1.6; }
 
   .spinner {
-    width: 40px; height: 40px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
+    width: 42px; height: 42px;
+    border: 3px solid var(--border);
+    border-top-color: var(--brand);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin: 0 auto 20px;
@@ -214,7 +258,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   @media (max-width: 500px) {
-    .summary-card, .select-card { padding: 20px; }
+    .summary-card, .select-card { padding: 22px; }
+    .summary-grid { grid-template-columns: 110px 1fr; }
     .btn-grid { gap: 8px; }
     .opt-btn { padding: 9px 14px; font-size: 12px; }
   }
@@ -223,7 +268,11 @@
 <body>
 
 <div class="header">
-  <div class="header-eyebrow">Choices Flooring Mackay</div>
+  <div class="brand-lockup">
+    <img src="icon.svg" alt="Choices Flooring" class="brand-mark">
+    <span class="brand-word"><strong>Choices</strong><span>FLOORING</span></span>
+  </div>
+  <div class="header-eyebrow">Mackay Store</div>
   <h1>Complete Customer Entry</h1>
   <div class="accent-line"></div>
 </div>
