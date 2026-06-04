@@ -795,9 +795,6 @@
   <div class="loading-text">Submitting your details…</div>
 </div>
 
-<!-- Google Maps Places API -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoNsyQgBmWfg6sfvChUvbI81F1-emWXdI&libraries=places,marker&v=beta&callback=initAutocomplete"></script>
-
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpiH0z2Knou1aCJaU6aC_d6ssP_8dDVj7QrjitlYSSpp6sQ-qBzWD5pPZZ2NtgWusqKA/exec';
 
@@ -1167,6 +1164,12 @@ function resetForm() {
 
   goToPage(1);
 }
+
+// Expose the Maps callback globally before the API loads
+window.initAutocomplete = initAutocomplete;
 </script>
+
+<!-- Google Maps Places API — loaded AFTER initAutocomplete is defined to avoid a callback race -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoNsyQgBmWfg6sfvChUvbI81F1-emWXdI&libraries=places,marker&v=beta&callback=initAutocomplete"></script>
 </body>
 </html>
