@@ -13,14 +13,11 @@
     --brand-dark: #0A578F;
     --brand-soft: #E7F1FA;
     --teal: #15837B;
-
     --cream: #F2F5F8;
     --charcoal: #1A2A3A;
     --mid: #57636F;
     --light: #98A2AD;
     --border: #D8DEE5;
-    --accent: #0E6AB5;
-    --accent-light: #E7F1FA;
     --error: #D63A2E;
     --success: #2E9E5B;
   }
@@ -35,7 +32,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Header ─────────────────────────────────────────────── */
   .header {
     background: #FFFFFF;
     padding: 26px 40px 24px;
@@ -67,7 +63,6 @@
   }
   .brand-word strong { font-weight: 700; font-size: 23px; letter-spacing: -0.01em; color: var(--brand); }
   .brand-word span { font-weight: 500; font-size: 12px; letter-spacing: 0.16em; color: var(--brand); margin-top: 2px; }
-
   .header-eyebrow {
     font-size: 11px;
     font-weight: 600;
@@ -90,14 +85,8 @@
     margin: 14px auto 0;
   }
 
-  .container {
-    max-width: 600px;
-    margin: 34px auto 0;
-    padding: 0 20px;
-  }
+  .container { max-width: 600px; margin: 34px auto 0; padding: 0 20px; }
 
-
-  /* ── Customer summary card ──────────────────────────────── */
   .summary-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -129,10 +118,7 @@
     font-weight: 600;
     padding-top: 2px;
   }
-  .summary-value {
-    font-size: 14px;
-    color: var(--charcoal);
-  }
+  .summary-value { font-size: 14px; color: var(--charcoal); }
   .summary-divider {
     grid-column: 1 / -1;
     border: none;
@@ -140,7 +126,6 @@
     margin: 8px 0;
   }
 
-  /* ── Selection card ─────────────────────────────────────── */
   .select-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -160,13 +145,7 @@
     border-bottom: 1px solid var(--border);
   }
 
-  /* ── Button grid ────────────────────────────────────────── */
-  .btn-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
+  .btn-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
   .opt-btn {
     padding: 10px 20px;
     border: 1px solid var(--border);
@@ -180,11 +159,7 @@
     transition: all 0.15s;
     white-space: nowrap;
   }
-  .opt-btn:hover {
-    border-color: var(--brand);
-    color: var(--brand);
-    background: var(--brand-soft);
-  }
+  .opt-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
   .opt-btn.selected {
     background: var(--brand);
     border-color: var(--brand);
@@ -192,17 +167,9 @@
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(14,106,181,0.22);
   }
-  .select-error {
-    font-size: 12px;
-    color: var(--error);
-    display: none;
-    margin-top: -16px;
-    margin-bottom: 16px;
-    font-weight: 500;
-  }
+  .select-error { font-size: 12px; color: var(--error); display: none; margin-top: -16px; margin-bottom: 16px; font-weight: 500; }
   .select-error.show { display: block; }
 
-  /* ── Submit ─────────────────────────────────────────────── */
   .submit-wrap { text-align: right; }
   .btn-submit {
     height: 50px;
@@ -221,7 +188,6 @@
   .btn-submit:hover { background: var(--brand-dark); box-shadow: 0 6px 16px rgba(14,106,181,0.25); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* ── States ─────────────────────────────────────────────── */
   .state-loading, .state-success, .state-error, .state-invalid {
     display: none;
     text-align: center;
@@ -238,14 +204,7 @@
   .icon-success { background: var(--brand-soft); border: 2px solid var(--brand); color: var(--brand); }
   .icon-error { background: #FDECEA; border: 2px solid var(--error); color: var(--error); }
   .icon-invalid { background: #F1F3F5; border: 2px solid var(--border); color: var(--light); }
-  .state-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 25px;
-    font-weight: 700;
-    color: var(--charcoal);
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
-  }
+  .state-title { font-family: 'Poppins', sans-serif; font-size: 25px; font-weight: 700; color: var(--charcoal); margin-bottom: 10px; letter-spacing: -0.01em; }
   .state-text { font-size: 14px; color: var(--mid); line-height: 1.6; }
 
   .spinner {
@@ -280,29 +239,23 @@
 
 <div class="container">
 
-  <!-- Loading state -->
   <div class="state-loading" id="stateLoading">
     <div class="spinner"></div>
     <div class="state-text">Loading customer details…</div>
   </div>
 
-  <!-- Invalid token -->
   <div class="state-invalid" id="stateInvalid">
     <div class="state-icon icon-invalid">?</div>
     <div class="state-title">Link Expired</div>
     <p class="state-text">This link is no longer valid or has already been used.<br>Please check your email for the latest request.</p>
   </div>
 
-  <!-- Main form -->
   <div id="mainForm" style="display:none">
-
-    <!-- Customer summary -->
     <div class="summary-card">
       <div class="summary-title">Customer Details</div>
       <div class="summary-grid" id="summaryGrid"></div>
     </div>
 
-    <!-- Selections -->
     <div class="select-card">
       <div class="select-section-title">Payment Terms</div>
       <div class="btn-grid" id="paymentGrid">
@@ -310,7 +263,6 @@
         <button class="opt-btn" onclick="select('payment', '7 Days', this)">7 Days</button>
         <button class="opt-btn" onclick="select('payment', '14 Days', this)">14 Days</button>
         <button class="opt-btn" onclick="select('payment', '30 Days', this)">30 Days</button>
-        
       </div>
       <div class="select-error" id="err-payment">Please select a payment term</div>
 
@@ -333,17 +285,14 @@
         <button class="btn-submit" id="submitBtn" onclick="submitEntry()">Create in BOS →</button>
       </div>
     </div>
-
   </div>
 
-  <!-- Success -->
   <div class="state-success" id="stateSuccess">
     <div class="state-icon icon-success">✓</div>
-    <div class="state-title">Customer Created</div>
-    <p class="state-text" id="successText">The customer has been successfully created in BOS.</p>
+    <div class="state-title">All Done!</div>
+    <p class="state-text" id="successText">Submitted. The customer will receive a confirmation email once their account is ready in BOS.</p>
   </div>
 
-  <!-- Error -->
   <div class="state-error" id="stateError">
     <div class="state-icon icon-error">!</div>
     <div class="state-title">Something Went Wrong</div>
@@ -353,44 +302,29 @@
 </div>
 
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJSjOiuUSTYwrPF2xwOtNHgQVPhf3Se0N1VMT2u0ZgBLtf6PYciclZlD1D9Du4HeX0Sw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkpMkkgJDjbL8gbjEt_zcVXPPLNhwJ2bpQ_N4dluMRY6ZekwZ2s7QszQFHpjtSXffDIA/exec';
 let selectedPayment = null;
-let selectedType = null;
-let customerToken = null;
-let customerData = null;
+let selectedType    = null;
+let customerToken   = null;
+let customerData    = null;
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
   const params = new URLSearchParams(window.location.search);
   customerToken = params.get('token');
-
-  if (!customerToken) {
-    showState('invalid');
-    return;
-  }
-
+  if (!customerToken) { showState('invalid'); return; }
   showState('loading');
-
   try {
-    // Fetch customer data from Apps Script
-    const res = await fetch(`${APPS_SCRIPT_URL}?action=getCustomer&token=${encodeURIComponent(customerToken)}`);
+    const res  = await fetch(`${APPS_SCRIPT_URL}?action=getCustomer&token=${encodeURIComponent(customerToken)}`);
     const data = await res.json();
-
-    if (!data.success || !data.customer) {
-      showState('invalid');
-      return;
-    }
-
+    if (!data.success || !data.customer) { showState('invalid'); return; }
     customerData = data.customer;
     renderSummary(customerData);
     showState('form');
-
   } catch(err) {
     showState('invalid');
   }
 });
 
-// ── Render summary ────────────────────────────────────────────────────────────
 function renderSummary(p) {
   const grid = document.getElementById('summaryGrid');
   const rows = [
@@ -398,19 +332,17 @@ function renderSummary(p) {
     ['Phone', p.phone],
     ['Email', p.email],
     p.abn ? ['ABN', p.abn] : null,
-    ['Salesperson', p.salesperson],
-    null, // divider
-    ['Billing', `${p.bill_address1}, ${p.bill_suburb} ${p.bill_state} ${p.bill_postcode}`],
-    ['Installation', `${p.ship_address1}, ${p.ship_suburb} ${p.ship_state} ${p.ship_postcode}`],
+    ['Consultant', p.salesperson],
+    null,
+    ['Project', `${p.bill_address1}, ${p.bill_suburb} ${p.bill_state} ${p.bill_postcode}`],
+    ['Billing', `${p.ship_address1}, ${p.ship_suburb} ${p.ship_state} ${p.ship_postcode}`],
   ].filter(Boolean);
-
   grid.innerHTML = rows.map(row => {
     if (row === null) return '<hr class="summary-divider">';
     return `<div class="summary-label">${row[0]}</div><div class="summary-value">${row[1]}</div>`;
   }).join('');
 }
 
-// ── Button selection ──────────────────────────────────────────────────────────
 function select(group, value, btn) {
   if (group === 'payment') {
     selectedPayment = value;
@@ -424,8 +356,7 @@ function select(group, value, btn) {
   btn.classList.add('selected');
 }
 
-// ── Submit ────────────────────────────────────────────────────────────────────
-async function submitEntry() {
+function submitEntry() {
   let valid = true;
   if (!selectedPayment) { document.getElementById('err-payment').classList.add('show'); valid = false; }
   if (!selectedType)    { document.getElementById('err-type').classList.add('show');    valid = false; }
@@ -433,35 +364,27 @@ async function submitEntry() {
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Creating…';
+  btn.textContent = 'Submitting…';
 
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({
-        action:       'completeCompany',
-        token:        customerToken,
-        paymentTerms: selectedPayment,
-        customerType: selectedType,
-      }),
-    });
+  // Fire and forget — do NOT await. Show success immediately.
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({
+      action:       'completeCompany',
+      token:        customerToken,
+      paymentTerms: selectedPayment,
+      customerType: selectedType,
+    }),
+  }).catch(() => {}); // no-cors response is opaque — errors can't be read anyway
 
-    // no-cors = opaque response, assume success
-    const name = customerData ? customerData.company_name : 'Customer';
-    document.getElementById('successText').textContent = `${name} has been successfully created in BOS.`;
-    showState('success');
-
-  } catch(err) {
-    document.getElementById('errorText').textContent = err.message || 'Unknown error. Please try again.';
-    showState('error');
-    btn.disabled = false;
-    btn.textContent = 'Create in BOS →';
-  }
+  const name = customerData ? customerData.company_name : 'Customer';
+  document.getElementById('successText').textContent =
+    `All done — ${name} has been submitted. They will receive a confirmation email once their account is ready in BOS.`;
+  showState('success');
 }
 
-// ── State manager ─────────────────────────────────────────────────────────────
 function showState(state) {
   document.getElementById('stateLoading').style.display = state === 'loading' ? 'block' : 'none';
   document.getElementById('stateInvalid').style.display = state === 'invalid' ? 'block' : 'none';
